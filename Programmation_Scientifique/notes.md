@@ -52,7 +52,7 @@ $$
 
 $$
 \forall n \ge 0,\quad
-H_n(z) \equiv (-1)^n\, e^{z^2}\,\frac{\mathrm d^n}{\mathrm d z^n}\!\left(e^{-z^2}\right).
+H_n(z) \equiv (-1)^n\, e^{z^2}\,\frac{\mathrm d^n}{\mathrm d z^n}\\left(e^{-z^2}\right).
 $$
 
 **Relation de récurrence**
