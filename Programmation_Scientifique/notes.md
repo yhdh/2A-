@@ -68,7 +68,7 @@ $$
 
 ### Constantes SI 2019
 - $h = 6.62607015\times10^{-34}$ J·s
-- $c = 2.99792458\times10^{8}$ m·s$^{-1}$
+- $c = 2.99792458\times10^{8}$ m·s $^{-1}$
 - $e = 1.602176634\times10^{-19}$ C
 
 ### Exemples de conversions
