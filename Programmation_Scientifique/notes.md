@@ -32,16 +32,16 @@ Les codes seront écrits en C++11 et respecteront les normes de codage scientifi
 
 ### Équation de Schrödinger stationnaire
 $$
-\hat H_{(z)}\,\psi_n(z) = E_n\\psi_n(z)
+\hat H_{(z)}\\psi_n(z) = E_n\\psi_n(z)
 $$
 avec
 $$
-\hat H_{(z)} \equiv \frac{\hat p_{(z)}^2}{2m} + \tfrac{1}{2} m\,\omega^2 z^2,\qquad
-\hat p_{(z)} \equiv -\,i\,\hbar\, \frac{\partial}{\partial z}.
+\hat H_{(z)} \equiv \frac{\hat p_{(z)}^2}{2m} + \tfrac{1}{2} m\\omega^2 z^2,\qquad
+\hat p_{(z)} \equiv -\i\\hbar\ \frac{\partial}{\partial z}.
 $$
 Les niveaux d’énergie sont
 $$
-E_n = \hbar\,\omega\left(n + \tfrac{1}{2}\right),\qquad n=0,1,2,\dots
+E_n = \hbar\\omega\left(n + \tfrac{1}{2}\right),\qquad n=0,1,2,\dots
 $$
 
 ![Niveaux d’énergie et fonctions propres de l’OHQ 1D](<énergie et solution de léquation de Schrondinger.png>)
