@@ -37,7 +37,7 @@ $$
 avec
 $$
 \hat H_{(z)} \equiv \frac{\hat p_{(z)}^2}{2m} + \tfrac{1}{2} m\\omega^2 z^2,\qquad
-\hat{p}_z \equiv -\,\mathrm{i}\,\hbar\,\frac{\partial}{\partial z}.
+\hat{p}_z \equiv -\\mathrm{i}\\hbar\\frac{\partial}{\partial z}.
 $$
 Les niveaux d’énergie sont
 $$
