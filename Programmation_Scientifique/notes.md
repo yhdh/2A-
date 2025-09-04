@@ -84,7 +84,7 @@ $$
 - Temps en s, énergie en eV: $\hbar \approx 6.582119569\times10^{-16}$ eV·s
 - Temps en fs, énergie en MeV: $\hbar \approx 6.582119569\times10^{-7}$ MeV·fs
 
-### Masses (en MeV/$c^2$)
+### Masses (en MeV/ $c^2$)
 - Neutron:  $m_n = 939.56542052$
 - Électron: $m_e = 0.510998950$
 
