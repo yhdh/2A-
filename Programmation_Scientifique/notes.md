@@ -49,12 +49,14 @@ $$
 # Polynômes d’Hermite (version « physiciens »)
 
 **Définition**
+
 $$
 \forall n \ge 0,\quad
 H_n(z) \equiv (-1)^n\, e^{z^2}\,\frac{\mathrm d^n}{\mathrm d z^n}\!\left(e^{-z^2}\right).
 $$
 
 **Relation de récurrence**
+
 $$
 H_0(z)=1,\qquad H_1(z)=2z,\qquad
 H_{n+1}(z)=2z\,H_n(z)-2n\,H_{n-1}(z),\quad (n\ge 1).
