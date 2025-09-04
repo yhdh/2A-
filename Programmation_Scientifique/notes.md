@@ -32,7 +32,7 @@ Les codes seront écrits en C++11 et respecteront les normes de codage scientifi
 
 ### Équation de Schrödinger stationnaire
 $$
-\hat H_{(z)}\,\psi_n(z) = E_n\,\psi_n(z)
+\hat H_{(z)}\,\psi_n(z) = E_n\\psi_n(z)
 $$
 avec
 $$
@@ -59,7 +59,7 @@ $$
 
 $$
 H_0(z)=1,\qquad H_1(z)=2z,\qquad
-H_{n+1}(z)=2z\,H_n(z)-2n\,H_{n-1}(z),\quad (n\ge 1).
+H_{n+1}(z)=2z\,H_n(z)-2n\, H_{n-1}(z), \quad (n\ge 1).
 $$
 
 ---
