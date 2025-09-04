@@ -44,7 +44,7 @@ $$
 E_n = \hbar\,\omega\left(n + \tfrac{1}{2}\right),\qquad n=0,1,2,\dots
 $$
 
-![Niveaux d’énergie et fonctions propres de l’OHQ 1D](<Capture d’écran 2025-09-04 à 01.23.55.png>)
+![Niveaux d’énergie et fonctions propres de l’OHQ 1D](<énergie et solution de léquation de Schrondinger.png>)
 
 ### Polynômes d’Hermite (version « physiciens »)
 Définition
