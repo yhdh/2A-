@@ -1,6 +1,6 @@
 # Notes de cours — Langages Objets Avancés (C++)
 
-Ce document synthétise les notions clés de C++ moderne (C++11 et +) avec définitions, explications et exemples courts et corrects. Il est prêt à être versionné sur Git.
+Ce document synthétise les notions clés de C++ moderne (C++11 et +) avec définitions, explications et exemples courts et corrects. 
 
 ---
 
@@ -230,7 +230,4 @@ public:
 
 ---
 
-## Pour dépôt Git
-- Vérifier l’orthographe et la cohérence des exemples (compilables en C++11).
-- Inclure `README.md`, `LICENSE`, `.gitignore`, et le cas échéant `Makefile`.
-- Utiliser des messages de commit explicites (impératif court): « Ajoute exemples rvalue/ref », « Corrige const-correctness », …
+
