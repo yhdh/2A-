@@ -21,6 +21,7 @@
 4. [Le Langage Assembleur RISC-V](#4-le-langage-assembleur-risc-v)
    4.1 [Instructions RV32IM](#41-instructions-rv32im)
    4.2 [Exemple de Code](#42-exemple-de-code)
+5. [Architecture d'un compilateur](#5-architecture-dun-compilateur)
 
 ---
 
@@ -282,10 +283,89 @@ f4:
 
 ---
 
-*Ces notes sont destinées à un usage éducatif. Pour toute question ou correction, veuillez contacter l'auteur.*
+## 5. Architecture d'un compilateur
 
+Pour qu'un compilateur soit correct, il faut que le code produit ait le même comportement que celui attendu pour le programme source. Pour cela, il est nécessaire de connaître la sémantique du langage. Parfois, la sémantique est définie par le fonctionnement de la machine elle-même ; dans les autres cas, elle a besoin d'être spécifiée formellement, par exemple avec des règles d'inférence.
 
+Un compilateur est généralement divisé en trois grandes parties :
 
+1.  **Front-end** : Cette partie analyse le code source pour en vérifier la validité et construire une représentation intermédiaire, comme l'Arbre de Syntaxe Abstraite (AST).
+    *   **Analyse lexicale** : Découpe le code source en *tokens*.
+    *   **Analyse syntaxique** : Vérifie que la séquence de *tokens* respecte la grammaire du langage et construit l'AST.
+    *   **Analyse sémantique** : Vérifie que le code a du sens (portée des variables, concordance des types, etc.).
+
+2.  **Middle-end** : Transforme et optimise la représentation intermédiaire (l'AST) pour améliorer le code sans dépendre de l'architecture cible.
+
+3.  **Back-end** : Génère le code cible (par exemple, l'assembleur RISC-V) à partir de la représentation intermédiaire optimisée.
+
+![Architecture d'un compilateur](compiler_architecture.png)
+
+Dans ce cours, nous étudierons les passes suivantes, qui illustrent ce processus :
+`Analyse lexicale` -> `Analyse syntaxique (AST)` -> `Analyse sémantique (AST)` -> `Sélection d'instructions (AST avec opérations RISC-V)` -> `Création du graphe de flot de contrôle (CFG)` -> `Explication de convention d'appel (CFG)` -> `Allocation de registres (CFG)`.
+
+---
+
+## 6. Analyse Lexicale et Syntaxique
+
+### 6.1 Exemple : de l'expression à l'AST
+
+Prenons l'expression suivante :
+`x1 := a * (b + 2)`
+
+Le compilateur la traite en plusieurs étapes.
+
+#### 6.1.1 Analyse Lexicale (Lexing)
+
+L'analyseur lexical (*lexer*) lit le code source et le convertit en une séquence de *tokens*. Pour notre exemple, les tokens seraient :
+
+```
+Var("x1") ASSIGN Var("a") MUL LPAREN Var("b") PLUS Int(2) RPAREN
+```
+
+#### 6.1.2 Analyse Syntaxique (Parsing)
+
+L'analyseur syntaxique (*parser*) prend les tokens et construit un **Arbre de Syntaxe Abstraite (AST)** qui représente la structure du code.
+
+Voici l'AST correspondant :
+
+```
+      :=
+     /  \
+  Var(x1)  *
+         / \
+      Var(a) +
+             / \
+          Var(b) Int(2)
+```
+
+### 6.2 Outils pour l'Analyse Lexicale : Lex/Flex
+
+Pour réaliser l'analyse lexicale, on utilise des outils comme **Lex** (ou **Flex**) qui reconnaissent les tokens à l'aide d'**expressions régulières**.
+
+#### Caractères spéciaux en Lex
+
+| Symbole | Description                                                                 |
+| :------ | :-------------------------------------------------------------------------- |
+| `c`     | Reconnaît le caractère non spécial `c`.                                     |
+| `\c`    | Reconnaît le caractère spécial `c`.                                         |
+| `.`     | Reconnaît n'importe quel caractère.                                         |
+| `[S]`   | Reconnaît un caractère présent dans l'ensemble `S` (ex: `[a-z]`).           |
+| `[^S]`  | Reconnaît un caractère qui n'est pas dans l'ensemble `S`.                   |
+| `e?`    | Reconnaît l'expression `e` zéro ou une fois (optionnel).                    |
+| `e*`    | Reconnaît `e` zéro, une ou plusieurs fois.                                  |
+| `e+`    | Reconnaît `e` une ou plusieurs fois.                                        |
+| `e|f`   | Reconnaît une expression `e` ou une expression `f`.                         |
+| `"S"`   | Reconnaît la chaîne de caractères littérale `S`.                            |
+
+#### Exemples d'expressions régulières
+
+-   **Identifiant OCaml** : `[a-zA-Z_][a-zA-Z0-9_']*`
+-   **Entiers relatifs** : `\-?(0|[1-9][0-9]*)`
+-   **Commentaire C** : `"/*"([^*]|\*[^/])*"*/"`
+
+### 6.3 Outils pour l'Analyse Syntaxique : Yacc/Bison
+
+C'est pour l'étape d'analyse syntaxique que l'on utilise des outils comme **Yacc** (ou son équivalent moderne, **Bison**). Yacc est un "générateur d'analyseur syntaxique" : on lui fournit une grammaire formelle qui décrit la syntaxe du langage, et il génère automatiquement le code (en C) d'un analyseur capable de valider la structure du code source et de construire l'AST.
 
 
 
