@@ -1,0 +1,37 @@
+[
+{
+  "directory": "/home/yahdhih.abdelwedoud/S3/LAOA24/TP1/build",
+  "command": "/usr/bin/g++ -I/home/yahdhih.abdelwedoud/S3/LAOA24/TP1/include  -std=c++20 -Wall -g -std=gnu++20 -o CMakeFiles/TP_STL.dir/src/functors/BoundedRandomGenerator.cpp.o -c /home/yahdhih.abdelwedoud/S3/LAOA24/TP1/src/functors/BoundedRandomGenerator.cpp",
+  "file": "/home/yahdhih.abdelwedoud/S3/LAOA24/TP1/src/functors/BoundedRandomGenerator.cpp"
+},
+{
+  "directory": "/home/yahdhih.abdelwedoud/S3/LAOA24/TP1/build",
+  "command": "/usr/bin/g++ -I/home/yahdhih.abdelwedoud/S3/LAOA24/TP1/include  -std=c++20 -Wall -g -std=gnu++20 -o CMakeFiles/TP_STL.dir/src/functors/StatFunctor.cpp.o -c /home/yahdhih.abdelwedoud/S3/LAOA24/TP1/src/functors/StatFunctor.cpp",
+  "file": "/home/yahdhih.abdelwedoud/S3/LAOA24/TP1/src/functors/StatFunctor.cpp"
+},
+{
+  "directory": "/home/yahdhih.abdelwedoud/S3/LAOA24/TP1/build",
+  "command": "/usr/bin/g++ -I/home/yahdhih.abdelwedoud/S3/LAOA24/TP1/include  -std=c++20 -Wall -g -std=gnu++20 -o CMakeFiles/TP_STL.dir/src/RunException.cpp.o -c /home/yahdhih.abdelwedoud/S3/LAOA24/TP1/src/RunException.cpp",
+  "file": "/home/yahdhih.abdelwedoud/S3/LAOA24/TP1/src/RunException.cpp"
+},
+{
+  "directory": "/home/yahdhih.abdelwedoud/S3/LAOA24/TP1/build",
+  "command": "/usr/bin/g++ -I/home/yahdhih.abdelwedoud/S3/LAOA24/TP1/include  -std=c++20 -Wall -g -std=gnu++20 -o CMakeFiles/TP_STL.dir/src/checkers/ExternalCheck.cpp.o -c /home/yahdhih.abdelwedoud/S3/LAOA24/TP1/src/checkers/ExternalCheck.cpp",
+  "file": "/home/yahdhih.abdelwedoud/S3/LAOA24/TP1/src/checkers/ExternalCheck.cpp"
+},
+{
+  "directory": "/home/yahdhih.abdelwedoud/S3/LAOA24/TP1/build",
+  "command": "/usr/bin/g++ -I/home/yahdhih.abdelwedoud/S3/LAOA24/TP1/include  -std=c++20 -Wall -g -std=gnu++20 -o CMakeFiles/TP_STL.dir/src/checkers/RCheck.cpp.o -c /home/yahdhih.abdelwedoud/S3/LAOA24/TP1/src/checkers/RCheck.cpp",
+  "file": "/home/yahdhih.abdelwedoud/S3/LAOA24/TP1/src/checkers/RCheck.cpp"
+},
+{
+  "directory": "/home/yahdhih.abdelwedoud/S3/LAOA24/TP1/build",
+  "command": "/usr/bin/g++ -I/home/yahdhih.abdelwedoud/S3/LAOA24/TP1/include  -std=c++20 -Wall -g -std=gnu++20 -o CMakeFiles/TP_STL.dir/src/checkers/MatlabCheck.cpp.o -c /home/yahdhih.abdelwedoud/S3/LAOA24/TP1/src/checkers/MatlabCheck.cpp",
+  "file": "/home/yahdhih.abdelwedoud/S3/LAOA24/TP1/src/checkers/MatlabCheck.cpp"
+},
+{
+  "directory": "/home/yahdhih.abdelwedoud/S3/LAOA24/TP1/build",
+  "command": "/usr/bin/g++ -I/home/yahdhih.abdelwedoud/S3/LAOA24/TP1/include  -std=c++20 -Wall -g -std=gnu++20 -o CMakeFiles/TP_STL.dir/src/main.cpp.o -c /home/yahdhih.abdelwedoud/S3/LAOA24/TP1/src/main.cpp",
+  "file": "/home/yahdhih.abdelwedoud/S3/LAOA24/TP1/src/main.cpp"
+}
+]
