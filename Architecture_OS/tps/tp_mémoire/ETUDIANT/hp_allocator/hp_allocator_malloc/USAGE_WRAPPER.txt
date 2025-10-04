@@ -1,0 +1,141 @@
+╔══════════════════════════════════════════════════════════════════╗
+║          WRAPPER MALLOC → HP_MALLOC - GUIDE RAPIDE               ║
+╚══════════════════════════════════════════════════════════════════╝
+
+📦 CONTENU
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ✓ libmalloc_wrapper.so     Wrapper LD_PRELOAD
+  ✓ libhp_allocator.so        Allocateur avec huge pages
+  ✓ run_with_hp_malloc.sh     Script utilitaire
+  ✓ README_WRAPPER.md         Documentation complète
+  ✓ demo_wrapper.sh           Démonstration rapide
+  ✓ test_wrapper.sh           Tests complets
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🚀 UTILISATION RAPIDE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Méthode 1 : Script utilitaire (RECOMMANDÉ)
+───────────────────────────────────────────────────────────────────
+  ./run_with_hp_malloc.sh <votre_programme> [args...]
+
+  Exemples:
+    ./run_with_hp_malloc.sh ./bench_malloc
+    ./run_with_hp_malloc.sh ls -la
+    ./run_with_hp_malloc.sh ./my_app arg1 arg2
+
+
+Méthode 2 : LD_PRELOAD manuel
+───────────────────────────────────────────────────────────────────
+  export LIB_DIR="$(pwd)/lib"
+  LD_LIBRARY_PATH="$LIB_DIR" \
+  LD_PRELOAD="$LIB_DIR/libmalloc_wrapper.so" \
+  ./votre_programme
+
+
+Méthode 3 : Variables d'environnement permanentes
+───────────────────────────────────────────────────────────────────
+  export LIB_DIR="/chemin/vers/hp_allocator_malloc/lib"
+  export LD_LIBRARY_PATH="$LIB_DIR:$LD_LIBRARY_PATH"
+  export LD_PRELOAD="$LIB_DIR/libmalloc_wrapper.so"
+  
+  # Maintenant tous les programmes utilisent hp_malloc
+  ./programme1
+  ./programme2
+  ...
+  
+  # Pour désactiver:
+  unset LD_PRELOAD
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🎯 EXEMPLE CONCRET : Benchmark svalat_bench
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+cd /path/to/svalat_bench
+
+# Avec malloc standard
+./bench_malloc > results_malloc.txt
+
+# Avec hp_malloc (via wrapper) - AUCUNE MODIFICATION DU CODE !
+/path/to/hp_allocator_malloc/run_with_hp_malloc.sh \
+  ./bench_malloc > results_hp_malloc.txt
+
+# Comparer les résultats
+diff results_malloc.txt results_hp_malloc.txt
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🔧 COMPILATION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+cd SRC
+make clean        # Nettoyer
+make              # Compiler hp_allocator + wrapper
+make install      # Installer dans lib/ et include/
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ TESTS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+# Test rapide (démo)
+./demo_wrapper.sh
+
+# Test complet
+./test_wrapper.sh
+
+# Test manuel simple
+./run_with_hp_malloc.sh ls -la
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📚 FONCTIONS INTERCEPTÉES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ✓ malloc()         → hp_malloc()
+  ✓ free()           → hp_free()
+  ✓ calloc()         → hp_malloc() + memset
+  ✓ realloc()        → hp_malloc() + copie + hp_free()
+  ✓ posix_memalign() → hp_malloc()
+  ✓ aligned_alloc()  → hp_malloc()
+  ✓ memalign()       → hp_malloc()
+  ✓ valloc()         → hp_malloc()
+  ✓ pvalloc()        → hp_malloc()
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+⚠️  LIMITATIONS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  • Capacité limitée : 14 Mo max au total
+  • Pas de libération individuelle (allocateur simple)
+  • Fallback sur malloc système si mémoire pleine
+  • Messages de debug multiples à l'initialisation
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📖 DOCUMENTATION COMPLÈTE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Consultez README_WRAPPER.md pour plus de détails sur :
+  • Le principe du LD_PRELOAD
+  • Les techniques d'interposition
+  • La gestion des appels récursifs
+  • Le débogage avancé
+  • Les cas d'usage pédagogiques
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🎓 AVANTAGE PRINCIPAL
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ✅ AUCUNE MODIFICATION DU CODE SOURCE NÉCESSAIRE !
+  
+  Le wrapper intercepte automatiquement malloc/free au niveau
+  du linker dynamique, permettant de tester différents allocateurs
+  sans toucher au code des applications.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
