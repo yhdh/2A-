@@ -80,7 +80,7 @@ static struct bloc *recherche_bloc_libre(size_t taille)
     struct bloc *precedent = NULL;
     struct bloc *ret = NULL;
 
-    while (/*??TODO??*/)
+    while (bloc != NULL)
     {
         if (bloc->taille >= taille)
         {
@@ -118,9 +118,9 @@ static void *__hp_malloc(size_t taille)
     //sorte que les blocs alloués soit toujours correctement alignés.
     taille = calcule_multiple_align(taille); 
 
-    ret = /*??TODO??*/; //recherche d'un bloc libre
+    struct bloc* bloc_trouve = recherche_bloc_libre(taille); //recherche d'un bloc libre
 
-    if (/*??TODO??*/)
+    if (bloc_trouve == NULL)
     {
         if (MEM_SIZE - alloue < TAILLE_EN_TETE + taille)
         {
@@ -128,12 +128,12 @@ static void *__hp_malloc(size_t taille)
             return NULL;
         }
 
-        ret = /*??TODO??*/;
-        alloue += /*??TODO??*/;
-        bloc_init(ret, taille);
+        bloc_trouve = (struct bloc *)(reserve.mem + alloue);
+        alloue += TAILLE_EN_TETE + taille;
+        bloc_init(bloc_trouve, taille);
     }
 
-    return /*??TODO??*/;
+    return (void *)((char *)bloc_trouve + TAILLE_EN_TETE);
 }
 
 
@@ -146,18 +146,14 @@ static void __hp_free(void *ptr)
     struct bloc *bloc = libre;
     struct bloc *nouveau;
 
-    if (/*??TODO??*/)
+    if (ptr == NULL)
         return;
 
-    /*??TODO??*/ = (struct bloc *)((char *)ptr - TAILLE_EN_TETE);
+    nouveau = (struct bloc *)((char *)ptr - TAILLE_EN_TETE);
 
-    while (/*??TODO??*/ && /*??TODO??*/ != NULL)
-        bloc = bloc->suivant;
-
-    if (bloc == NULL)
-        libre = nouveau;
-    else
-        bloc->suivant = nouveau;
+    // Insertion en tête de la liste des blocs libres
+    nouveau->suivant = libre;
+    libre = nouveau;
 }
 
 
@@ -204,12 +200,12 @@ static void hp_finalize(){
 //------------------------------------------------------------------------
 //API Implementation
 //
-void *hp_malloc(size_t taille){
+void *malloc(size_t taille){
     return __hp_malloc(taille);
 }
 
-void hp_free(void *ptr){
-    return __hp_free(ptr);
+void free(void *ptr){
+    __hp_free(ptr);
 }
 //------------------------------------------------------------------------
 
