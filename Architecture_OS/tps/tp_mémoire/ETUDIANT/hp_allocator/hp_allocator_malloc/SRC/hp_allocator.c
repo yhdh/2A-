@@ -53,14 +53,14 @@ static void *__hp_malloc(size_t taille)
     
     taille = calcule_multiple_align(taille);
 
-    if (/*??TODO??*/)
+    if (alloue + taille > MEM_SIZE)
     {
         fprintf(stderr, "Il n'y a plus assez de mémoire disponible.\n");
         return NULL;
     }
 
-    ret = /*??TODO??*/;
-    alloue += /*??TODO??*/;
+    ret = (void *)(reserve.mem + alloue);
+    alloue += taille;
     return ret;
 
 }
