@@ -33,8 +33,8 @@ static void bloc_init(struct bloc *, size_t);
 static size_t calcule_multiple_align(size_t);
 static struct bloc *recherche_bloc_libre(size_t);
 
-static void *__hp_malloc(size_t);
-static void __hp_free(void*);
+void *__hp_malloc(size_t);
+void __hp_free(void*);
 
 
 static void bloc_init(struct bloc *b, size_t taille)
@@ -101,7 +101,7 @@ static struct bloc *recherche_bloc_libre(size_t taille)
 }
 
 
-static void *__hp_malloc(size_t taille)
+void *__hp_malloc(size_t taille)
 {
     /*
      *      * Alloue un bloc de mémoire au moins de taille `taille`.
@@ -137,7 +137,7 @@ static void *__hp_malloc(size_t taille)
 }
 
 
-static void __hp_free(void *ptr)
+void __hp_free(void *ptr)
 {
     /*
      *      * Ajoute le bloc fourni à la liste des blocs libres.

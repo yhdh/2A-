@@ -5,20 +5,20 @@
 int main(){
     int i;
     int* t = malloc(3*sizeof(int));
-    int* st = hp_malloc(3*sizeof(int));
+    int* st = __hp_malloc(3*sizeof(int));
 
     for(i=0; i<3;i++){
         t[i]=i+1;
         st[i]=i+1;
     }
 
-    if( ! memcmp(t,st,3))
+    if( ! memcmp(t,st,3*sizeof(int)) )
         printf("succes\n");
     else
         printf("failure\n");
 
     free(t);
-    hp_free(st);
+        __hp_free(st);
     return 0;
 
 }

@@ -1,4 +1,4 @@
-a.out: main.c hp_allocator.c hp_allocator.h
+a.out: main.c hp_allocator.c 
 	gcc $^ -o $@
 clean:
 	rm a.out

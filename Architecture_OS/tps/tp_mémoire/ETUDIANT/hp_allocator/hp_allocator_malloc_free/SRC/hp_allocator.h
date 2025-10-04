@@ -27,7 +27,7 @@
 #endif
 
 
-void *hp_malloc(size_t taille);
-void hp_free(void* ptr);
+void  *__hp_malloc(size_t taille);
+void __hp_free(void* ptr);
 
 #endif
