@@ -72,36 +72,37 @@ static void *__hp_malloc(size_t taille)
 //
 __attribute__((constructor))
 static void hp_init(){
-    static int is_initialized=0;
-   // if(! is_initialized){
-   //     is_initialized=1;
-        //open the file into hugefs
-        __hp_fd = open(FILE_NAME, O_CREAT | O_RDWR, 0755);
-        if (__hp_fd < 0 && 0) {
-            perror("Open failed");
-            fprintf(stderr,"check you have done : \n echo 200 > \
-                    /proc/sys/vm/nr_hugepages\n mount -t hugetlbfs -o mode=0777 none \
-                    /mnt/huge");
-            exit(1);
-        }
+    //open the file into hugefs
+    __hp_fd = open(FILE_NAME, O_CREAT | O_RDWR, 0755);
+    if (__hp_fd < 0) {
+        perror("Open failed");
+        fprintf(stderr,"check you have done : \n echo 200 > \
+                /proc/sys/vm/nr_hugepages\n mount -t hugetlbfs -o mode=0777 none \
+                /mnt/huge\n");
+        exit(1);
+    }
 
-        //mapping memory
-        //buffer = mmap(ADDR, MEM_SIZE, PROTECTION, FLAGS, __hp_fd, 0);
-        reserve.mem = mmap(ADDR, MEM_SIZE, PROTECTION, FLAGS|MAP_ANONYMOUS, __hp_fd, 0);
-        //if (buffer == MAP_FAILED) {
-        if (reserve.mem == MAP_FAILED) {
-            perror("mmap");
-            unlink(FILE_NAME);
-            exit(1);
-        }
-    //}
+    //mapping memory - utilise les huge pages via le file descriptor
+    reserve.mem = mmap(ADDR, MEM_SIZE, PROTECTION, FLAGS, __hp_fd, 0);
+    
+    if (reserve.mem == MAP_FAILED) {
+        perror("mmap");
+        close(__hp_fd);
+        unlink(FILE_NAME);
+        exit(1);
+    }
+    
+    printf("DEBUG: Huge pages allouées à l'adresse %p\n", reserve.mem);
 }
 __attribute__((destructor))
 static void hp_finalize(){
 	//free and close
-	//munmap(buffer, MEM_SIZE);
-	munmap(reserve.mem, MEM_SIZE);
-	close(__hp_fd);
+	if (reserve.mem != MAP_FAILED) {
+		munmap(reserve.mem, MEM_SIZE);
+	}
+	if (__hp_fd >= 0) {
+		close(__hp_fd);
+	}
 	unlink(FILE_NAME);
 }
 
@@ -111,6 +112,12 @@ static void hp_finalize(){
 //
 void *hp_malloc(size_t taille){
     return __hp_malloc(taille);
+}
+
+void hp_free(void *ptr){
+    // Simple allocator - pas de libération individuelle
+    // La mémoire sera libérée globalement à la fin du programme
+    (void)ptr; // Pour éviter un warning de variable non utilisée
 }
 //------------------------------------------------------------------------
 
