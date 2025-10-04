@@ -1,0 +1,49 @@
+╔══════════════════════════════════════════════════════════════════╗
+║       BENCHMARK HP_MALLOC - GUIDE D'UTILISATION RAPIDE           ║
+╚══════════════════════════════════════════════════════════════════╝
+
+📋 COMMANDES PRINCIPALES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1️⃣  Exécuter le pipeline complet (recommandé)
+   ./run_benchmark_pipeline.sh
+
+2️⃣  Afficher le résumé des résultats
+   python3 show_summary.py
+
+3️⃣  Exécuter uniquement le benchmark
+   ./bench_hp_malloc > results_hp_malloc.txt
+
+4️⃣  Convertir en CSV
+   python3 clean_and_convert_to_csv.py
+
+5️⃣  Générer les graphiques
+   python3 plot_benchmark.py
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📁 FICHIERS GÉNÉRÉS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ✓ results_hp_malloc.txt       Résultats bruts du benchmark
+  ✓ results_hp_malloc.csv       Données nettoyées (CSV)
+  ✓ benchmark_hp_malloc.png     Graphiques de performance
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🔧 CONFIGURATION REQUISE (HUGE PAGES)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Avant d'exécuter le benchmark, configurez les huge pages :
+
+  sudo sh -c "echo 200 > /proc/sys/vm/nr_hugepages"
+  sudo mkdir -p /mnt/huge
+  sudo mount -t hugetlbfs -o mode=0777 none /mnt/huge
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📖 DOCUMENTATION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Pour plus de détails, consultez : README_BENCHMARK.md
+
